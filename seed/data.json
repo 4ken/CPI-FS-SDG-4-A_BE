@@ -1,0 +1,70 @@
+{
+  "teacher": {
+    "employeeIdentificationNumber": "197805051234567002",
+    "fullName": "Budi Wijaya, S.Pd.",
+    "placeDateOfBirth": "Surabaya, 1978-05-06",
+    "address": "Jl. Jawa No. 45, Surabaya"
+  },
+  "students": [
+    {
+      "studentIdentificationNumber": "1234567890",
+      "fullName": "Agus Setiawan",
+      "placeDateOfBirth": "Jakarta, 2005-03-15",
+      "address": "Jl. Merdeka No. 123, Jakarta"
+    },
+    {
+      "studentIdentificationNumber": "0987654321",
+      "fullName": "Rina Fitriani",
+      "placeDateOfBirth": "Surabaya, 2004-07-22",
+      "address": "Jl. Pahlawan No. 45, Surabaya"
+    },
+    {
+      "studentIdentificationNumber": "5432109876",
+      "fullName": "Budi Prasetyo",
+      "placeDateOfBirth": "Bandung, 2006-01-10",
+      "address": "Jl. Diponegoro No. 67, Bandung"
+    },
+    {
+      "studentIdentificationNumber": "9876543210",
+      "fullName": "Dewi Susanti",
+      "placeDateOfBirth": "Yogyakarta, 2005-09-05",
+      "address": "Jl. Malioboro No. 89, Yogyakarta"
+    },
+    {
+      "studentIdentificationNumber": "2345678901",
+      "fullName": "Rizal Fauzi",
+      "placeDateOfBirth": "Medan, 2004-12-18",
+      "address": "Jl. Medan Baru No. 12, Medan"
+    },
+    {
+      "studentIdentificationNumber": "6789012345",
+      "fullName": "Siti Aisyah",
+      "placeDateOfBirth": "Makassar, 2005-06-30",
+      "address": "Jl. Jenderal Sudirman No. 56, Makassar"
+    },
+    {
+      "studentIdentificationNumber": "3456789012",
+      "fullName": "Hadi Pramono",
+      "placeDateOfBirth": "Semarang, 2006-03-25",
+      "address": "Jl. Pemuda No. 78, Semarang"
+    },
+    {
+      "studentIdentificationNumber": "7890123456",
+      "fullName": "Rita Wulandari",
+      "placeDateOfBirth": "Denpasar, 2004-08-12",
+      "address": "Jl. Gatot Subroto No. 34, Denpasar"
+    },
+    {
+      "studentIdentificationNumber": "4567890123",
+      "fullName": "Andi Susilo",
+      "placeDateOfBirth": "Surakarta, 2005-02-19",
+      "address": "Jl. Slamet Riyadi No. 56, Surakarta"
+    },
+    {
+      "studentIdentificationNumber": "8901234567",
+      "fullName": "Nina Permata",
+      "placeDateOfBirth": "Palembang, 2006-07-07",
+      "address": "Jl. Sudirman No. 23, Palembang"
+    }
+  ]
+}
