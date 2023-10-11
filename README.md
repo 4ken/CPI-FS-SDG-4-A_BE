@@ -78,6 +78,8 @@ To seed initial data into your MongoDB database, follow these steps:
 | ------ | --------------------------------------------------------- | ------------------------------------------------ |
 | POST   | [`/api/auth/login`](#post-apiauthlogin)                   | Log in teacher or students                       |
 | POST   | [`/api/auth/reset-password`](#post-apiauthreset-password) | Request a password reset for teacher or students |
+| GET    | [`/api/teacher/profile`](#get-apiteacherprofile)          | Retrieve teacher profile information             |
+| PATCH  | [`/api/teacher/profile`](#patch-apiteacherprofile)        | Update teacher profile information               |
 
 ## API Requests and Responses
 
@@ -146,6 +148,67 @@ Request a password reset for teacher or students
 
   - **Code:** 400  
     **Content:** `{ error : "Konfirmasi kata sandi tidak cocok dengan kata sandi baru" }`
+
+    OR
+
+  - **Code:** 401  
+    **Content:** `{ error : "Anda tidak memiliki akses ke sumber daya ini" }`
+
+### **GET /api/teacher/profile**
+
+Retrieve teacher profile information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  None
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: {
+      nomorInduk: string,
+      nama: string,
+      tempatTanggalLahir: string,
+      alamat: string
+    }
+  }
+  ```
+
+### **PATCH /api/teacher/profile**
+
+Retrieve teacher profile information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**
+
+  ```
+  {
+    nomorInduk: string,
+    nama: string,
+    tempatTanggalLahir: string,
+    alamat: string
+  }
+  ```
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:** `{ pesan: string }`
+
+* **Error Response:**
+
+  - **Code:** 400  
+    **Content:** `{ error: "Nomor induk harus diisi" }`
 
     OR
 
