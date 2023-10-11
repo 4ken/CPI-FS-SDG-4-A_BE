@@ -161,7 +161,6 @@ Retrieve teacher profile information
 - **URL Params**  
   None
 - **Headers**  
-  Content-Type: application/json  
   Authorization: Bearer `<Token>`
 - **Data Params**  
   None
