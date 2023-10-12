@@ -80,6 +80,10 @@ To seed initial data into your MongoDB database, follow these steps:
 | POST   | [`/api/auth/reset-password`](#post-apiauthreset-password) | Request a password reset for teacher or students |
 | GET    | [`/api/teacher/profile`](#get-apiteacherprofile)          | Retrieve teacher profile information             |
 | PATCH  | [`/api/teacher/profile`](#patch-apiteacherprofile)        | Update teacher profile information               |
+| GET    | [`/api/student`](#get-apistudent)                         | Retrieve list of students                        |
+| GET    | [`/api/student/:nomorInduk`](#get-apistudentnomorinduk)   | Retrieve student information                     |
+| GET    | [`/api/student/profile`](#get-apistudentprofile)          | Retrieve student profile information             |
+| PATCH  | [`/api/student/profile`](#patch-apistudentprofile)        | Update student profile information               |
 
 ## API Requests and Responses
 
@@ -198,6 +202,140 @@ Retrieve teacher profile information
     nama: string,
     tempatTanggalLahir: string,
     alamat: string
+  }
+  ```
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:** `{ pesan: string }`
+
+* **Error Response:**
+
+  - **Code:** 400  
+    **Content:** `{ error: "Nomor induk harus diisi" }`
+
+    OR
+
+  - **Code:** 401  
+    **Content:** `{ error : "Anda tidak memiliki akses ke sumber daya ini" }`
+
+### **GET /api/student**
+
+Retrieve list of students
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  None
+- **Query Params**  
+  search: string|optional
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: [
+      {
+        nomorInduk: string,
+        nama: string,
+        tempatTanggalLahir: string,
+        alamat: string,
+        orangTua: {
+          namaAyah: string,
+          namaIbu: string,
+        }
+      }
+    ]
+  }
+  ```
+
+### **GET /api/student/:nomorInduk**
+
+Retrieve student information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  nomorInduk: numeric
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: {
+      nomorInduk: string,
+      nama: string,
+      tempatTanggalLahir: string,
+      alamat: string,
+      orangTua: {
+        namaAyah: string,
+        namaIbu: string,
+      }
+    }
+  }
+  ```
+### **GET /api/student/profile**
+
+Retrieve student profile information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  None
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: {
+      nomorInduk: string,
+      nama: string,
+      tempatTanggalLahir: string,
+      alamat: string,
+      orangTua: {
+        namaAyah: string,
+        namaIbu: string,
+      }
+    }
+  }
+  ```
+
+### **PATCH /api/student/profile**
+
+Retrieve student profile information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Request Body**
+
+  ```
+  {
+    nomorInduk: string,
+    nama: string,
+    tempatTanggalLahir: string,
+    alamat: string,
+    orangTua: {
+      namaAyah: string|optional,
+      namaIbu: string|optional,
+    }
   }
   ```
 
