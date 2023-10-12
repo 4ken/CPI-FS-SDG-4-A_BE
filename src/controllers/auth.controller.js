@@ -17,8 +17,9 @@ const login = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
+    const { nomorInduk } = req.user;
     const data = validate(authValidation.resetPassword, req.body);
-    await authService.resetPassword(data);
+    await authService.resetPassword(nomorInduk, data);
     res.json({
       pesan: 'Kata sandi berhasil diubah',
     });

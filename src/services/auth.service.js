@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import userModel from '../models/user.js';
 import ResponseError from '../utils/error/response.error.js';
+import passwordUtils from '../utils/auth/passwordUtils.js';
 
 const login = async (data) => {
   const userFilter = {
@@ -15,7 +15,11 @@ const login = async (data) => {
   if (!user) {
     throw new ResponseError(message, 401);
   }
-  const isPasswordValid = await bcrypt.compare(data.kataSandi, user.password);
+  const isPasswordValid = passwordUtils.verify(
+    data.kataSandi,
+    user.salt,
+    user.password,
+  );
   if (!isPasswordValid) {
     throw new ResponseError(message, 401);
   }
@@ -29,23 +33,25 @@ const login = async (data) => {
   return token;
 };
 
-const resetPassword = async (data) => {
+const resetPassword = async (identificationNumber, data) => {
   const userFilter = {
     $or: [
-      { employeeIdentificationNumber: data.nomorInduk },
-      { studentIdentificationNumber: data.nomorInduk },
+      { employeeIdentificationNumber: identificationNumber },
+      { studentIdentificationNumber: identificationNumber },
     ],
   };
   const user = await userModel.findOne(userFilter);
-  const isPasswordValid = await bcrypt.compare(
+  const isPasswordValid = passwordUtils.verify(
     data.kataSandiLama,
-    user.password
+    user.salt,
+    user.password,
   );
   if (!isPasswordValid) {
     throw new ResponseError('Kata sandi lama yang diberikan salah', 401);
   }
-  const password = await bcrypt.hash(data.kataSandiBaru, 10);
-  await userModel.findOneAndUpdate(userFilter, { password });
+  const salt = passwordUtils.generateSalt();
+  const password = passwordUtils.hash(data.kataSandiBaru, salt);
+  await userModel.findOneAndUpdate(userFilter, { salt, password });
 };
 
 export default {
