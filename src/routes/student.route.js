@@ -7,7 +7,7 @@ const studentRouter = express.Router();
 
 studentRouter.use(authMiddleware);
 studentRouter.get('/', authorize('guru'), studentController.getAllStudent);
-studentRouter.get('/:nomorInduk([0-9]{10})', authorize('guru'), studentController.getStudentDetail);
+studentRouter.get('/:nomorInduk(\\d+)', authorize('guru'), studentController.getStudentDetail);
 studentRouter
     .route('/profile')
     .all(authorize('siswa'))
