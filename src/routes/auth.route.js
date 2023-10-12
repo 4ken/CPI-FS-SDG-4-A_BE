@@ -8,7 +8,7 @@ authRouter.post('/login', authController.login);
 authRouter.post(
   '/reset-password',
   authMiddleware,
-  authController.resetPassword
+  authController.resetPassword,
 );
 
 export default authRouter;

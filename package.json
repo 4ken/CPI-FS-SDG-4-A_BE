@@ -6,14 +6,15 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
+    "prettier": "prettier -w \"src/**/*.js\"",
     "seed": "node seed/seed.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "build": "ENVIRONMENT=$ENVIRONMENT rollup -c"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
@@ -22,9 +23,16 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.5",
+    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "eslint": "^8.51.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "rollup": "^4.0.2"
   }
 }
