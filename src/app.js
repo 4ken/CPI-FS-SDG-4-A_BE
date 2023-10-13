@@ -6,14 +6,14 @@ import router from './routes/route.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
-const dbHost = process.env.DB_HOST;
+const dbURI = process.env.DB_URI;
 
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use('/api', router);
 
 mongoose
-  .connect(dbHost)
+  .connect(dbURI)
   .then(() => {
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);

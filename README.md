@@ -8,6 +8,7 @@ This repository contains documentation for the AntiBullying RESTful API, a platf
 - [Prerequisites](#prerequisites)
 - [How to Run](#how-to-run)
 - [Seed data](#seed-data)
+- [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
 - [API Requests and Responses](#api-requests-and-responses)
 
@@ -62,7 +63,7 @@ Now, follow the steps below to run the API on your local environment:
 
 To seed initial data into your MongoDB database, follow these steps:
 
-1. Open the `seed/seed.js` file and set the [`dbHost`](./seed/seed.js#L8) variable to your MongoDB connection string.
+1. Open the `seed/seed.js` file and set the [`dbURI`](./seed/seed.js#L8) variable to your MongoDB connection string.
 
 2. Run the following command:
 
@@ -71,6 +72,21 @@ To seed initial data into your MongoDB database, follow these steps:
    ```
 
    This command will populate your MongoDB database with initial user information data, including teacher and students. You can customize this data as needed.
+
+## Project Structure
+
+```
+src\
+ |--controllers\    # Route controllers (controller layer)
+ |--mappers\        # Data mapping
+ |--middlewares\    # Custom express middlewares
+ |--models\         # Mongoose models (data layer)
+ |--routes\         # Routes
+ |--services\       # Business logic (service layer)
+ |--utils\          # Utility classes and functions
+ |--validations\    # Request data validation schemas
+ |--app.js          # Express app
+```
 
 ## API Endpoints
 
@@ -283,6 +299,7 @@ Retrieve student information
     }
   }
   ```
+
 ### **GET /api/student/profile**
 
 Retrieve student profile information

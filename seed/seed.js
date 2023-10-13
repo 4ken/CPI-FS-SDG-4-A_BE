@@ -1,34 +1,41 @@
-import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import { readFileSync } from 'fs';
 import userModel from '../src/models/user.js';
 import studentModel from '../src/models/student.js';
 import teacherModel from '../src/models/teacher.js';
+import passwordUtils from '../src/utils/auth/passwordUtils.js';
 
-const dbHost = 'put your MongoDB connection string here';
+const dbURI = 'put your MongoDB connection string here';
 const data = JSON.parse(readFileSync('./seed/data.json'));
 
 (async () => {
   try {
-    await mongoose.connect(dbHost);
+    await mongoose.connect(dbURI);
     await userModel.deleteMany({});
 
-    const teacher = await teacherModel.create({
+    const teacherSalt = passwordUtils.generateSalt();
+    const teacher = {
       ...data.teacher,
       role: 'guru',
-      password: await bcrypt.hash(
+      salt: teacherSalt,
+      password: passwordUtils.hash(
         data.teacher.employeeIdentificationNumber,
-        10
+        teacherSalt
       ),
-    });
+    };
 
-    const students = await Promise.all(
-      data.students.map(async (student) => ({
+    const students = data.students.map((student) => {
+      const studentSalt = passwordUtils.generateSalt();
+      return {
         ...student,
         role: 'siswa',
-        password: await bcrypt.hash(student.studentIdentificationNumber, 10),
-      }))
-    );
+        salt: studentSalt,
+        password: passwordUtils.hash(
+          student.studentIdentificationNumber,
+          studentSalt
+        ),
+      };
+    });
 
     await teacherModel.create(teacher);
     await studentModel.insertMany(students);
