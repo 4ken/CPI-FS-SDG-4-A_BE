@@ -13,7 +13,7 @@ console.log('environment::::', environment);
 let ENVIRONMENT_VARIABLES = {
   'process.env.NODE_ENV': JSON.stringify('development'),
   'process.env.PORT': JSON.stringify('3080'),
-  'process.env.DB_HOST': JSON.stringify(process.env.DB_HOST),
+  'process.env.DB_URI': JSON.stringify(process.env.DB_URI),
   'process.env.JWT_SECRET': JSON.stringify(process.env.JWT_SECRET),
 };
 
@@ -21,7 +21,7 @@ if (isProduction) {
   ENVIRONMENT_VARIABLES = {
     'process.env.NODE_ENV': JSON.stringify('production'),
     'process.env.PORT': JSON.stringify('80'),
-    'process.env.DB_HOST': JSON.stringify(
+    'process.env.DB_URI': JSON.stringify(
       'put your MongoDB connection string here'
     ),
     'process.env.JWT_SECRET': JSON.stringify('put your JWT secret key here'),

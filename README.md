@@ -63,7 +63,7 @@ Now, follow the steps below to run the API on your local environment:
 
 To seed initial data into your MongoDB database, follow these steps:
 
-1. Open the `seed/seed.js` file and set the [`dbHost`](./seed/seed.js#L8) variable to your MongoDB connection string.
+1. Open the `seed/seed.js` file and set the [`dbURI`](./seed/seed.js#L8) variable to your MongoDB connection string.
 
 2. Run the following command:
 

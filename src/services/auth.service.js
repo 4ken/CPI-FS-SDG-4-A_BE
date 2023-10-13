@@ -18,7 +18,7 @@ const login = async (data) => {
   const isPasswordValid = passwordUtils.verify(
     data.kataSandi,
     user.salt,
-    user.password,
+    user.password
   );
   if (!isPasswordValid) {
     throw new ResponseError(message, 401);
@@ -44,7 +44,7 @@ const resetPassword = async (identificationNumber, data) => {
   const isPasswordValid = passwordUtils.verify(
     data.kataSandiLama,
     user.salt,
-    user.password,
+    user.password
   );
   if (!isPasswordValid) {
     throw new ResponseError('Kata sandi lama yang diberikan salah', 401);

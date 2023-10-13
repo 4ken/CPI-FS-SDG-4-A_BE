@@ -10,7 +10,7 @@ studentRouter.get('/', authorize('guru'), studentController.getAllStudent);
 studentRouter.get(
   '/:nomorInduk(\\d+)',
   authorize('guru'),
-  studentController.getStudentDetail,
+  studentController.getStudentDetail
 );
 studentRouter
   .route('/profile')
