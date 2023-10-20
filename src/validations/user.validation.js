@@ -2,10 +2,10 @@ import Joi from 'joi';
 
 const changePassword = Joi.object({
   password: Joi.string().required().messages({
-    'string.empty': 'Kata sandi lama harus diisi',
+    'any.required': 'Kata sandi lama harus diisi',
   }),
   newPassword: Joi.string().required().messages({
-    'string.empty': 'Kata sandi baru harus diisi',
+    'any.required': 'Kata sandi baru harus diisi',
   }),
   confirmPassword: Joi.string()
     .valid(Joi.ref('newPassword'))
