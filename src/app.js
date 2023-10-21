@@ -1,7 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import cors from 'cors';
 import 'dotenv/config';
+import corsOptionsDelegate from './middlewares/cors.middleware.js';
 import router from './routes/route.js';
 
 const app = express();
@@ -10,6 +12,7 @@ const dbURI = process.env.DB_URI;
 
 app.use(express.json());
 app.use(morgan('tiny'));
+app.use(cors(corsOptionsDelegate));
 app.use('/api', router);
 
 mongoose

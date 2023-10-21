@@ -16,7 +16,7 @@ const data = JSON.parse(readFileSync('./seed/data.json'));
     const teacherSalt = passwordUtils.generateSalt();
     const teacher = {
       ...data.teacher,
-      role: 'guru',
+      role: 'teacher',
       salt: teacherSalt,
       password: passwordUtils.hash(
         data.teacher.employeeIdentificationNumber,
@@ -28,7 +28,7 @@ const data = JSON.parse(readFileSync('./seed/data.json'));
       const studentSalt = passwordUtils.generateSalt();
       return {
         ...student,
-        role: 'siswa',
+        role: 'student',
         salt: studentSalt,
         password: passwordUtils.hash(
           student.studentIdentificationNumber,
