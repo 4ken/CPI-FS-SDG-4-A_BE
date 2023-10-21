@@ -67,10 +67,10 @@ To seed initial data into your MongoDB database, follow these steps:
 2. Run the following command:
 
    ```
-   npm run seed
+   node seed/seed.js
    ```
 
-   This command will populate your MongoDB database with initial user information data, including teacher and students. You can customize this data as needed.
+   This command will populate your MongoDB database with initial user information data.
 
 ## Project Structure
 
