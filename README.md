@@ -100,6 +100,11 @@ src\
 | GET    | [`/api/student/:nomorInduk`](#get-apistudentnomorinduk)   | Retrieve student information                     |
 | GET    | [`/api/student/profile`](#get-apistudentprofile)          | Retrieve student profile information             |
 | PATCH  | [`/api/student/profile`](#patch-apistudentprofile)        | Update student profile information               |
+| POST   | [`/api/report/`](#post-apireport)                         | Create a new report for student                  |
+| GET    | [`/api/report/`](#get-apireport)                          | Retrieve all reports from all students           |
+| GET    | [`/api/report/:idLaporan`](#get-apireportidlaporan)       | Retrieve a report detail information             |
+| PATCH  | [`/api/report/:idLaporan`](#patch-apireportidlaporan)     | Update report status by a teacher                |
+| GET    | [`/api/report/:nomorInduk`](#get-apireportnomorinduk)     | Retrieve reports of a student                    |
 
 ## API Requests and Responses
 
@@ -368,3 +373,209 @@ Retrieve student profile information
 
   - **Code:** 401  
     **Content:** `{ error : "Anda tidak memiliki akses ke sumber daya ini" }`
+
+### **POST /api/report**
+
+Create a new report for student
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json
+- **Data Params**
+
+  ```
+  {
+    reporterIdentificationNumber: string,
+    reportData: {
+      pelaku: string,
+      incidentDate: Date,
+      incidentLocation: string,
+      incidentDescription: string
+    }
+  }
+  ```
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    pesan: string
+    report: {
+      id: report_id,
+      perpetrator: {
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      reporter: { 
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      incidentDate: Date,
+      reportSubmissionDate: Date,
+      incidentLocation: string,
+      incidentDescription: string,
+      reportStatus: string
+    }
+  }
+  ```
+
+* **Error Response:**
+
+  - **Code:** 400  
+    **Content:** `{ error : "Harap mengisi data yang diperlukan" }`
+
+    OR
+
+  <!-- Ini gimana ya? -->
+  - **Code:** 401  
+    **Content:** `{ error : "Nomor induk atau kata sandi salah" }`
+
+### **GET /api/report**
+
+Retrieve all reports from all students
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  None
+  <!-- ini di aku ga perlu -->
+- **Query Params**  
+  search: string|optional
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: [
+      {
+      id: report_id,
+      perpetrator: {
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      reporter: { 
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      incidentDate: Date,
+      reportSubmissionDate: Date,
+      incidentLocation: string,
+      incidentDescription: string,
+      reportStatus: string
+    }
+    ]
+  }
+  ```
+
+### **GET /api/report/:idLaporan**
+
+Retrieve a report detail information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  idLaporan: object_id
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: {
+      id: report_id,
+      perpetrator: {
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      reporter: { 
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      incidentDate: Date,
+      reportSubmissionDate: Date,
+      incidentLocation: string,
+      incidentDescription: string,
+      reportStatus: string
+    }
+  }
+  ```
+
+### **PATCH /api/report/:idLaporan**
+
+Retrieve student profile information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Request Body**
+
+  ```
+  {
+    newReportStatus: string
+  }
+  ```
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:** `{ pesan: Status laporan berhasil di udpate (string) }`
+
+* **Error Response:**
+
+  - **Code:** 400  
+    **Content:** `{ error: "idLaporan harus diisi" }`
+
+    OR
+
+  - **Code:** 401  
+    **Content:** `{ error : "Anda tidak memiliki akses ke sumber daya ini" }`
+
+### **GET /api/report/:nomorinduk**
+
+Retrieve a report detail information
+
+- **URL Params**  
+  None
+- **Headers**  
+  Content-Type: application/json  
+  Authorization: Bearer `<Token>`
+- **Data Params**  
+  nomorInduk: string
+
+- **Success Response:**
+- **Code:** 200  
+  **Content:**
+
+  ```
+  {
+    data: {
+      id: report_id,
+      perpetrator: {
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      reporter: { 
+        fullName: string,
+        studentIdentificationNumber: string
+      }
+      incidentDate: Date,
+      reportSubmissionDate: Date,
+      incidentLocation: string,
+      incidentDescription: string,
+      reportStatus: string
+    }
+  }
+  ```
