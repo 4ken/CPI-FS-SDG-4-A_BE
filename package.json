@@ -5,8 +5,8 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint .",
-    "prettier": "prettier -w \"src/**/*.js\"",
+    "lint": "eslint --fix .",
+    "prettier": "prettier --write \"src/**/*.js\"",
     "start": "node dist/api.bundle.cjs",
     "dev": "nodemon src/app.js",
     "build": "rollup --config"
