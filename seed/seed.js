@@ -5,7 +5,7 @@ import studentModel from '../src/models/student.js';
 import teacherModel from '../src/models/teacher.js';
 import passwordUtils from '../src/utils/auth/passwordUtils.js';
 
-const dbURI = 'put your MongoDB connection string here';
+const dbURI = 'mongodb://0.0.0.0:27017/Anty-bullying';
 const data = JSON.parse(readFileSync('./seed/data.json'));
 
 (async () => {
