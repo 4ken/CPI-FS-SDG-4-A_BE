@@ -6,17 +6,17 @@ import authorize from '../middlewares/authorizeMiddleware.js';
 const reportRoute = express.Router();
 
 reportRoute.use(authMiddleware);
-reportRoute.get('/', authorize('guru'), reportController.getAllReports);
+reportRoute.get('/', authorize('teacher'), reportController.getAllReports);
 reportRoute.get(
-  '/:nomorInduk(\\d+)',
-  authorize('siswa'),
+  '/:identificationNumber(\\d+)',
+  authorize('student'),
   reportController.getStudentReports
 );
-reportRoute.post('/', authorize('siswa'), reportController.createNewReport);
+reportRoute.post('/', authorize('student'), reportController.createNewReport);
 
 reportRoute
-  .route('/:idLaporan')
-  .all(authorize('guru'))
+  .route('/:reportId')
+  .all(authorize('teacher'))
   .get(reportController.getReportDetail)
   .patch(reportController.updateReportStatus);
 
