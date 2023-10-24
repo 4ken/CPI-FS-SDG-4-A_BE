@@ -18,7 +18,7 @@ const login = async (data) => {
     role: user.role,
   };
   const secretKey = process.env.JWT_SECRET;
-  const options = { expiresIn: '1h' };
+  const options = { expiresIn: '2h' };
   const token = jwt.sign(payload, secretKey, options);
   return { role: user.role, token };
 };
