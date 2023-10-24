@@ -1,38 +1,22 @@
-const fromModel = (data) => ({
-  idLaporan: data._id,
-  pembully: {
-    namaPelaku: data.perpetrator.fullName,
-    nomorIndukPelaku: data.perpetrator.studentIdentificationNumber,
-  },
-  pelapor: {
-    namaPelapor: data.reporter.fullName,
-    nomorIndukPelapor: data.reporter.studentIdentificationNumber,
-  },
+const getReportDetail = (data) => ({
+  id: data._id,
+  waktuDilaporkan: data.createdAt,
+  namaPelapor: data.reporterName,
+  namaPelaku: data.perpetratorName,
+  lokasiKejadian: data.incidentLocation,
   waktuKejadian: data.incidentDate,
-  tanggalSubmitLaporan: data.reportSubmissionDate,
-  lokasi: data.incidentLocation,
   deskripsiKejadian: data.incidentDescription,
-  statusLaporan: data.reportStatus,
+  status: data.status,
 });
 
-const toModel = (data) => ({
-  _id: data.idLaporan,
-  perpetrator: {
-    fullName: data.pembully.namaPelaku,
-    studentIdentificationNumber: data.pembully.nomorIndukPelaku,
-  },
-  reporter: {
-    fullName: data.pelapor.namaPelaku,
-    studentIdentificationNumber: data.pelapor.nomorIndukPelapor,
-  },
-  incidentDate: data.waktuKejadian,
-  reportSubmissionDate: data.tanggalSubmitLaporan,
-  incidentLocation: data.lokasi,
-  incidentDescription: data.incidentDescription,
-  reportStatus: data.statusLaporan,
+const getStudentReports = (data) => ({
+  id: data._id,
+  waktuDilaporkan: data.createdAt,
+  namaPelaku: data.perpetratorName,
+  status: data.status,
 });
 
 export default {
-  fromModel,
-  toModel,
+  getReportDetail,
+  getStudentReports,
 };

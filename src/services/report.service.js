@@ -1,55 +1,78 @@
-import ReportModel from '../models/report.js';
+import reportModel from '../models/report.js';
+import ResponseError from '../utils/error/response.error.js';
 import reportMapper from '../mappers/report.mapper.js';
-import studentModel from '../models/student.js';
+import { lookupAndUnwind } from '../utils/report/reportUtils.js';
 
-const createNewReport = async (reporterIdentificationNumber, reportData) => {
-  const filter = { reporterIdentificationNumber };
-  const reporter = {
-    fullName: await studentModel.findOne(filter).fullName,
-    studentIdentificationNumber: reporterIdentificationNumber,
-  };
-  const perpetrator = {
-    fullName: reportData.pelaku,
-    studentIdentificationNumber: await studentModel.findOne(reportData.pelaku)
-      .studentIdentificationNumber,
-  };
-
-  const { incidentDate, incidentLocation, incidentDescription } = reportData;
-
-  const newReport = new ReportModel({
-    perpetrator,
-    reporter,
-    incidentDate,
-    incidentLocation,
-    incidentDescription,
-  });
-
-  await newReport.save();
-  return newReport;
+const createNewReport = async (reporter, data) => {
+  const { perpetrator } = data;
+  if (reporter === perpetrator) {
+    throw new ResponseError('Pelapor dan pelaku tidak boleh sama', 400);
+  }
+  await reportModel.create({ reporter, ...data });
 };
 
 const getAllReports = async () => {
-  const allReports = await ReportModel.find();
-  return allReports;
+  const reports = await reportModel.aggregate([
+    ...lookupAndUnwind('reporter', 'studentIdentificationNumber'),
+    ...lookupAndUnwind('perpetrator', 'studentIdentificationNumber'),
+    {
+      $project: {
+        reporterName: '$reporter.fullName',
+        perpetratorName: '$perpetrator.fullName',
+        incidentDate: 1,
+        createdAt: 1,
+        incidentLocation: 1,
+        incidentDescription: 1,
+        status: 1,
+      },
+    },
+  ]);
+  return reports.map(reportMapper.getReportDetail);
 };
 
-const getStudentReports = async (nomorInduk) => {
-  const filter = { nomorInduk };
-  const studentReports = await ReportModel.find(filter);
-  return studentReports.map(reportMapper.fromModel);
+const getStudentReports = async (reporter) => {
+  const reports = await reportModel.aggregate([
+    ...lookupAndUnwind('perpetrator', 'studentIdentificationNumber'),
+    {
+      $match: {
+        reporter,
+      },
+    },
+    {
+      $project: {
+        perpetratorName: '$perpetrator.fullName',
+        createdAt: 1,
+        status: 1,
+      },
+    },
+  ]);
+  return reports.map(reportMapper.getStudentReports);
 };
 
 const getReportDetail = async (reportId) => {
-  const filter = { reportId };
-  const report = await ReportModel.findOne(filter);
-  return reportMapper.fromModel(report);
+  const report = await reportModel.aggregate([
+    ...lookupAndUnwind('reporter', 'studentIdentificationNumber'),
+    ...lookupAndUnwind('perpetrator', 'studentIdentificationNumber'),
+    {
+      $match: { _id: reportId },
+    },
+    {
+      $project: {
+        reporterName: '$reporter.fullName',
+        perpetratorName: '$perpetrator.fullName',
+        incidentDate: 1,
+        createdAt: 1,
+        incidentLocation: 1,
+        incidentDescription: 1,
+        status: 1,
+      },
+    },
+  ]);
+  return reportMapper.getReportDetail(report[0]);
 };
 
-const updateReportStatus = async (reportId, newReportStatus) => {
-  const filter = { _id: reportId };
-  await ReportModel.findOneAndUpdate(filter, {
-    reportStatus: newReportStatus,
-  });
+const updateReportStatus = async (reportId, data) => {
+  await reportModel.findByIdAndUpdate(reportId, data);
 };
 
 export default {

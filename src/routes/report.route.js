@@ -1,23 +1,20 @@
 import express from 'express';
 import reportController from '../controllers/report.controller.js';
-import authMiddleware from '../middlewares/authMiddleware.js';
-import authorize from '../middlewares/authorizeMiddleware.js';
+import authMiddleware from '../middlewares/auth.middleware.js';
+import authorize from '../middlewares/authorize.middleware.js';
 
-const reportRoute = express.Router();
+const reportRouter = express.Router();
 
-reportRoute.use(authMiddleware);
-reportRoute.get('/', authorize('teacher'), reportController.getAllReports);
-reportRoute.get(
-  '/:identificationNumber(\\d+)',
+reportRouter.use(authMiddleware);
+reportRouter.get(
+  '/mine',
   authorize('student'),
   reportController.getStudentReports
 );
-reportRoute.post('/', authorize('student'), reportController.createNewReport);
+reportRouter.post('/', reportController.createNewReport);
+reportRouter.use(authorize('teacher'));
+reportRouter.get('/', reportController.getAllReports);
+reportRouter.get('/:reportId', reportController.getReportDetail);
+reportRouter.patch('/:reportId/status', reportController.updateReportStatus);
 
-reportRoute
-  .route('/:reportId')
-  .all(authorize('teacher'))
-  .get(reportController.getReportDetail)
-  .patch(reportController.updateReportStatus);
-
-export default reportRoute;
+export default reportRouter;
