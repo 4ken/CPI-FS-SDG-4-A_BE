@@ -2,8 +2,8 @@ import studentService from '../services/student.service.js';
 
 const getStudentDetail = async (req, res) => {
   try {
-    const { nomorInduk } = req.params;
-    const data = await studentService.getStudentDetail(nomorInduk);
+    const { identificationNumber } = req.params;
+    const data = await studentService.getStudentDetail(identificationNumber);
     const { student: siswa, parent: orangTua } = data;
     res.json({ data: { siswa, orangTua } });
   } catch ({ message: error, status = 500 }) {

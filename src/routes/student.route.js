@@ -8,6 +8,9 @@ const studentRouter = express.Router();
 studentRouter.use([authMiddleware, authorize('teacher')]);
 
 studentRouter.get('/', studentController.getAllStudents);
-studentRouter.get('/:nomorInduk(\\d{10})', studentController.getStudentDetail);
+studentRouter.get(
+  '/:identificationNumber(\\d{10})',
+  studentController.getStudentDetail
+);
 
 export default studentRouter;
