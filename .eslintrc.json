@@ -12,7 +12,11 @@
   "ignorePatterns": [".eslintrc.json"],
   "rules": {
     "no-console": "off",
+    "no-sequences": "off",
     "import/extensions": "off",
+    "object-curly-newline": "off",
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off",
     "comma-dangle": [
       "error",
       {
