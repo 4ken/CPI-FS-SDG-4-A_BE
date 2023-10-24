@@ -7,7 +7,7 @@ import corsOptionsDelegate from './middlewares/cors.middleware.js';
 import router from './routes/route.js';
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const dbURI = process.env.DB_URI;
 
 app.use(express.json());
