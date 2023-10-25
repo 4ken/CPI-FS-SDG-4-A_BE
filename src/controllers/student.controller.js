@@ -1,13 +1,14 @@
 import studentService from '../services/student.service.js';
+import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 
 const getStudentDetail = async (req, res) => {
   try {
-    const { nomorInduk } = req.params;
-    const data = await studentService.getStudentDetail(nomorInduk);
+    const { identificationNumber } = req.params;
+    const data = await studentService.getStudentDetail(identificationNumber);
     const { student: siswa, parent: orangTua } = data;
     res.json({ data: { siswa, orangTua } });
-  } catch ({ message: error, status = 500 }) {
-    res.status(status).json({ error });
+  } catch (error) {
+    handleErrorResponse(res, error);
   }
 };
 
@@ -16,8 +17,8 @@ const getAllStudents = async (req, res) => {
     const { search } = req.query;
     const data = await studentService.getAllStudents(search);
     res.json({ data });
-  } catch ({ message: error, status = 500 }) {
-    res.status(status).json({ error });
+  } catch (error) {
+    handleErrorResponse(res, error);
   }
 };
 

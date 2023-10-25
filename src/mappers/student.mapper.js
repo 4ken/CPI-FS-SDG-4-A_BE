@@ -1,10 +1,21 @@
-const fromModel = (data) => ({
-  nomorInduk: data.studentIdentificationNumber,
-  nama: data.fullName,
-  tempatTanggalLahir: data.placeDateOfBirth,
-  alamat: data.address,
+const getStudent = ({
+  studentIdentificationNumber,
+  fullName,
+  placeDateOfBirth,
+  address,
+}) => ({
+  nomorInduk: studentIdentificationNumber,
+  nama: fullName,
+  tempatTanggalLahir: placeDateOfBirth,
+  alamat: address,
+});
+
+const getParent = ({ parent: { fatherName, motherName } }) => ({
+  namaAyah: fatherName,
+  namaIbu: motherName,
 });
 
 export default {
-  fromModel,
+  getStudent,
+  getParent,
 };

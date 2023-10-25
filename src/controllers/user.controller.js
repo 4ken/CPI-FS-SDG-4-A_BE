@@ -1,13 +1,14 @@
 import userService from '../services/user.service.js';
 import validate from '../validations/validation.js';
 import userValidation from '../validations/user.validation.js';
+import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 
 const getProfile = async (req, res) => {
   try {
     const data = await userService.getProfile(req.user);
     res.json({ data });
-  } catch ({ message: error, status = 500 }) {
-    res.status(status).json({ error });
+  } catch (error) {
+    handleErrorResponse(res, error);
   }
 };
 
@@ -18,8 +19,8 @@ const changePassword = async (req, res) => {
     res.json({
       pesan: 'Kata sandi berhasil diubah',
     });
-  } catch ({ message: error, status = 500 }) {
-    res.status(status).json({ error });
+  } catch (error) {
+    handleErrorResponse(res, error);
   }
 };
 

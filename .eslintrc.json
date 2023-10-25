@@ -3,7 +3,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "extends": ["plugin:prettier/recommended", "airbnb-base"],
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -12,6 +12,18 @@
   "ignorePatterns": [".eslintrc.json"],
   "rules": {
     "no-console": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "object-curly-newline": "off",
+    "no-underscore-dangle": "off",
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ]
   }
 }
