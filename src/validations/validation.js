@@ -1,4 +1,4 @@
-import ResponseError from '../utils/error/response.error.js';
+import ResponseError from '../utils/error/responseError.js';
 
 const validate = (schema, request) => {
   const result = schema.validate(request);

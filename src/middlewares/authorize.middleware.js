@@ -1,15 +1,16 @@
-import ResponseError from '../utils/error/response.error.js';
+import httpStatus from 'http-status';
+import ResponseError from '../utils/error/responseError.js';
+import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 
 const authorize = (requiredRole) => (req, res, next) => {
   try {
     const { role } = req.user;
     if (requiredRole !== role) {
-      throw new ResponseError('Akses ditolak', 403);
+      throw new ResponseError('Akses ditolak', httpStatus.FORBIDDEN);
     }
-
     next();
-  } catch ({ message: error, status = 500 }) {
-    res.status(status).json({ error });
+  } catch (error) {
+    handleErrorResponse(res, error);
   }
 };
 

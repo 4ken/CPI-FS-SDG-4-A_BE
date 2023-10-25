@@ -1,25 +1,25 @@
-import jwt from 'jsonwebtoken';
-import userModel from '../models/user.js';
-import ResponseError from '../utils/error/response.error.js';
+import httpStatus from 'http-status';
+import ResponseError from '../utils/error/responseError.js';
 import passwordUtils from '../utils/auth/passwordUtils.js';
+import findUser from '../utils/auth/findUser.js';
+import createToken from '../utils/auth/createToken.js';
 
 const login = async (data) => {
-  const user = await userModel.findOne({
-    $or: [
-      { employeeIdentificationNumber: data.identificationNumber },
-      { studentIdentificationNumber: data.identificationNumber },
-    ],
-  });
+  const user = await findUser(data.identificationNumber);
+
   if (!user || !passwordUtils.verify(data.password, user.salt, user.password)) {
-    throw new ResponseError('Nomor induk atau kata sandi salah', 401);
+    throw new ResponseError(
+      'Nomor induk atau kata sandi salah',
+      httpStatus.UNAUTHORIZED
+    );
   }
+
   const payload = {
     identificationNumber: data.identificationNumber,
     role: user.role,
   };
-  const secretKey = process.env.JWT_SECRET;
-  const options = { expiresIn: '2h' };
-  const token = jwt.sign(payload, secretKey, options);
+
+  const token = createToken(payload);
   return { role: user.role, token };
 };
 

@@ -1,6 +1,6 @@
 import { isValidObjectId, Types } from 'mongoose';
 import reportModel from '../../models/report.js';
-import ResponseError from '../error/response.error.js';
+import ResponseError from '../error/responseError.js';
 
 export const lookupAndUnwind = (localField, foreignField) => [
   {

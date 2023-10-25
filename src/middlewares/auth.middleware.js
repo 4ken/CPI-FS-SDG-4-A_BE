@@ -1,13 +1,19 @@
 import jwt from 'jsonwebtoken';
-import ResponseError from '../utils/error/response.error.js';
+import httpStatus from 'http-status';
+import ResponseError from '../utils/error/responseError.js';
+import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 
 const verifyToken = (token) => {
   const secretKey = process.env.JWT_SECRET;
+  if (!secretKey) {
+    throw new Error('JWT_SECRET environment variable is missing');
+  }
+
   return new Promise((resolve, reject) => {
     jwt.verify(token, secretKey, (err, payload) => {
       if (err) {
         const message = 'Token tidak valid';
-        reject(new ResponseError(message, 403));
+        reject(new ResponseError(message, httpStatus.FORBIDDEN));
       }
       resolve(payload);
     });
@@ -17,10 +23,9 @@ const verifyToken = (token) => {
 const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.get('Authorization');
-
     if (!authHeader) {
       const message = 'Anda tidak memiliki akses ke sumber daya ini';
-      throw new ResponseError(message, 401);
+      throw new ResponseError(message, httpStatus.UNAUTHORIZED);
     }
 
     const token = authHeader.split(' ')[1];
@@ -28,8 +33,8 @@ const authMiddleware = async (req, res, next) => {
 
     req.user = payload;
     next();
-  } catch ({ message: error, status = 500 }) {
-    res.status(status).json({ error });
+  } catch (error) {
+    handleErrorResponse(res, error);
   }
 };
 

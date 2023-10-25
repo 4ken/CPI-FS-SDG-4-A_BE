@@ -10,6 +10,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const dbURI = process.env.DB_URI;
 
+if (!dbURI) {
+  throw new Error('DB_URI environment variable is missing');
+}
+
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(cors(corsOptionsDelegate));
@@ -22,6 +26,6 @@ mongoose
       console.log(`Server running on port ${port}`);
     });
   })
-  .catch((err) => {
-    console.log(err.message);
+  .catch(({ message }) => {
+    console.log('Database connection error:', message);
   });

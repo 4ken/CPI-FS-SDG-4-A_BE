@@ -1,20 +1,16 @@
-const fromModel = (data) => {
-  const {
-    employeeIdentificationNumber,
-    studentIdentificationNumber,
-    fullName,
-    placeDateOfBirth,
-    address,
-  } = data;
-
-  return {
-    nomorInduk: employeeIdentificationNumber || studentIdentificationNumber,
-    nama: fullName,
-    tempatTanggalLahir: placeDateOfBirth,
-    alamat: address,
-  };
-};
+const getProfile = ({
+  employeeIdentificationNumber,
+  studentIdentificationNumber,
+  fullName,
+  placeDateOfBirth,
+  address,
+}) => ({
+  nomorInduk: employeeIdentificationNumber || studentIdentificationNumber,
+  nama: fullName,
+  tempatTanggalLahir: placeDateOfBirth,
+  alamat: address,
+});
 
 export default {
-  fromModel,
+  getProfile,
 };

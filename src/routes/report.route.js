@@ -6,12 +6,14 @@ import authorize from '../middlewares/authorize.middleware.js';
 const reportRouter = express.Router();
 
 reportRouter.use(authMiddleware);
+
 reportRouter.get(
   '/mine',
   authorize('student'),
   reportController.getStudentReports
 );
 reportRouter.post('/', reportController.createNewReport);
+
 reportRouter.use(authorize('teacher'));
 reportRouter.get('/', reportController.getAllReports);
 reportRouter.get('/:reportId', reportController.getReportDetail);
