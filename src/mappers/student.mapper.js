@@ -10,9 +10,11 @@ const getStudent = ({
   alamat: address,
 });
 
-const getParent = ({ parent: { fatherName, motherName } }) => ({
+const getParent = ({ fatherName, motherName, phone, email }) => ({
   namaAyah: fatherName,
   namaIbu: motherName,
+  telepon: phone,
+  surel: email,
 });
 
 export default {

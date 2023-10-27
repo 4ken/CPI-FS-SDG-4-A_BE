@@ -12,13 +12,17 @@ const getStudentDetail = async (studentIdentificationNumber) => {
   }
 
   const student = studentMapper.getStudent(data);
-  const parent = studentMapper.getParent(data);
+  const parent = studentMapper.getParent(data.parent);
   return { student, parent };
 };
 
-const getAllStudents = async (search) => {
+const getAllStudents = async (role, search) => {
   const filter = search ? { fullName: { $regex: search, $options: 'i' } } : {};
-  const data = await studentModel.find(filter);
+  const isTeacher = role === 'teacher';
+  const projection = !isTeacher
+    ? { studentIdentificationNumber: 1, fullName: 1 }
+    : {};
+  const data = await studentModel.find(filter, projection);
   return data.map(studentMapper.getStudent);
 };
 

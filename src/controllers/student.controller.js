@@ -14,8 +14,9 @@ const getStudentDetail = async (req, res) => {
 
 const getAllStudents = async (req, res) => {
   try {
+    const { role } = req.user;
     const { search } = req.query;
-    const data = await studentService.getAllStudents(search);
+    const data = await studentService.getAllStudents(role, search);
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);

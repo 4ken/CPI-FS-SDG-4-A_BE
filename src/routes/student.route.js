@@ -5,11 +5,12 @@ import authorize from '../middlewares/authorize.middleware.js';
 
 const studentRouter = express.Router();
 
-studentRouter.use([authMiddleware, authorize('teacher')]);
+studentRouter.use(authMiddleware);
 
 studentRouter.get('/', studentController.getAllStudents);
 studentRouter.get(
-  '/:identificationNumber(\\d{10})',
+  '/:identificationNumber',
+  authorize('teacher'),
   studentController.getStudentDetail
 );
 
