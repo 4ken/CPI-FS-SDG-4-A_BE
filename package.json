@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint --fix \"src/**/*.js\"",
+    "lint": "eslint \"src/**/*.js\"",
     "prettier": "prettier --write \"src/**/*.js\"",
     "start": "node dist/api.bundle.cjs",
     "dev": "nodemon src/app.js",

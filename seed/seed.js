@@ -3,42 +3,42 @@ import { readFileSync } from 'fs';
 import userModel from '../src/models/user.js';
 import studentModel from '../src/models/student.js';
 import teacherModel from '../src/models/teacher.js';
+import reportModel from '../src/models/report.js';
 import passwordUtils from '../src/utils/auth/passwordUtils.js';
 
-const dbURI = 'put your MongoDB connection string here';
-const data = JSON.parse(readFileSync('./seed/data.json'));
+const generateSaltAndHash = (identificationNumber) => {
+  const salt = passwordUtils.generateSalt();
+  const password = passwordUtils.hash(identificationNumber, salt);
+  return { salt, password };
+};
 
 (async () => {
+  const dbURI = 'mongodb://127.0.0.1:27017/test_antybullying';
+  const data = JSON.parse(readFileSync('./seed/data.json'));
+
   try {
     await mongoose.connect(dbURI);
-    await userModel.deleteMany({});
 
-    const teacherSalt = passwordUtils.generateSalt();
+    await userModel.deleteMany();
+    await reportModel.deleteMany();
+
+    const { employeeIdentificationNumber } = data.teacher;
     const teacher = {
       ...data.teacher,
-      role: 'teacher',
-      salt: teacherSalt,
-      password: passwordUtils.hash(
-        data.teacher.employeeIdentificationNumber,
-        teacherSalt
-      ),
+      ...generateSaltAndHash(employeeIdentificationNumber),
     };
 
     const students = data.students.map((student) => {
-      const studentSalt = passwordUtils.generateSalt();
+      const { studentIdentificationNumber } = student;
       return {
         ...student,
-        role: 'student',
-        salt: studentSalt,
-        password: passwordUtils.hash(
-          student.studentIdentificationNumber,
-          studentSalt
-        ),
+        ...generateSaltAndHash(studentIdentificationNumber),
       };
     });
 
     await teacherModel.create(teacher);
     await studentModel.insertMany(students);
+    await reportModel.insertMany(data.reports);
 
     console.log('Successfully seeding data');
     process.exitCode = 0;
