@@ -5,7 +5,16 @@ function generateSalt() {
 }
 
 const hash = (password, salt) => {
-  const hashedPassword = crypto.pbkdf2Sync(password, salt, 10000, 65, 'sha256');
+  const iterations = 10000;
+  const keylen = 65;
+  const digest = 'sha256';
+  const hashedPassword = crypto.pbkdf2Sync(
+    password,
+    salt,
+    iterations,
+    keylen,
+    digest
+  );
   return hashedPassword.toString('hex');
 };
 

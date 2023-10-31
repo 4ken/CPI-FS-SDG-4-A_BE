@@ -26,11 +26,9 @@ const changePassword = async (payload, data) => {
     );
   }
 
-  const newPassword = passwordUtils.hash(
-    data.newPassword,
-    passwordUtils.generateSalt()
-  );
-  await userModel.findOneAndUpdate(userFilter, { password: newPassword });
+  const salt = passwordUtils.generateSalt();
+  const password = passwordUtils.hash(data.newPassword, salt);
+  await userModel.findOneAndUpdate(userFilter, { salt, password });
 };
 
 export default {
