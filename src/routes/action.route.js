@@ -1,7 +1,7 @@
 import express from 'express';
-import actionController from '../controllers/action.controller';
-import authMiddleware from '../middlewares/auth.middleware';
-import authorize from '../middlewares/authorize.middleware';
+import actionController from '../controllers/action.controller.js';
+import authMiddleware from '../middlewares/auth.middleware.js';
+import authorize from '../middlewares/authorize.middleware.js';
 
 const actionRouter = express.Router();
 

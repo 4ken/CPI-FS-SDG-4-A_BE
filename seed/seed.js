@@ -13,7 +13,7 @@ const generateSaltAndHash = (identificationNumber) => {
 };
 
 (async () => {
-  const dbURI = 'mongodb://127.0.0.1:27017/test_antybullying';
+  const dbURI = 'mongodb://127.0.0.1:27017/Anty-bullying';
   const data = JSON.parse(readFileSync('./seed/data.json'));
 
   try {

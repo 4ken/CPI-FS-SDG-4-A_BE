@@ -1,5 +1,5 @@
-import handleErrorResponse from '../utils/response/handleErrorResponse';
-import actionService from '../services/action.service';
+import handleErrorResponse from '../utils/response/handleErrorResponse.js';
+import actionService from '../services/action.service.js';
 
 const getDiscplinaryActionHistory = async (req, res) => {
   try {
