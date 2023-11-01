@@ -3,20 +3,6 @@ import httpStatus from 'http-status';
 import reportModel from '../../models/report.js';
 import ResponseError from '../error/responseError.js';
 
-export const lookupAndUnwind = (localField, foreignField) => [
-  {
-    $lookup: {
-      from: 'users',
-      localField,
-      foreignField,
-      as: localField,
-    },
-  },
-  {
-    $unwind: `$${localField}`,
-  },
-];
-
 export const validationReportId = async ({ reportId }) => {
   if (!isValidObjectId(reportId)) {
     throw new ResponseError('ID Laporan tidak valid', httpStatus.BAD_REQUEST);

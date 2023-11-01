@@ -2,12 +2,9 @@ import httpStatus from 'http-status';
 import reportModel from '../models/report.js';
 import ResponseError from '../utils/error/responseError.js';
 import reportMapper from '../mappers/report.mapper.js';
-import { lookupAndUnwind } from '../utils/report/reportUtils.js';
 
 const createNewReport = async (reporter, data) => {
-  const { perpetrator } = data;
-
-  if (reporter === perpetrator) {
+  if (reporter === data.perpetrator) {
     throw new ResponseError(
       'Pelapor dan pelaku tidak boleh sama',
       httpStatus.BAD_REQUEST
@@ -19,8 +16,28 @@ const createNewReport = async (reporter, data) => {
 
 const getAllReports = async () => {
   const pipeline = [
-    ...lookupAndUnwind('reporter', 'studentIdentificationNumber'),
-    ...lookupAndUnwind('perpetrator', 'studentIdentificationNumber'),
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'reporter',
+        foreignField: 'studentIdentificationNumber',
+        as: 'reporter',
+      },
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'perpetrator',
+        foreignField: 'studentIdentificationNumber',
+        as: 'perpetrator',
+      },
+    },
+    {
+      $unwind: '$reporter',
+    },
+    {
+      $unwind: '$perpetrator',
+    },
     {
       $project: {
         reporterName: '$reporter.fullName',
@@ -39,11 +56,19 @@ const getAllReports = async () => {
 
 const getStudentReports = async (reporter) => {
   const pipeline = [
-    ...lookupAndUnwind('perpetrator', 'studentIdentificationNumber'),
     {
-      $match: {
-        reporter,
+      $lookup: {
+        from: 'users',
+        localField: 'perpetrator',
+        foreignField: 'studentIdentificationNumber',
+        as: 'perpetrator',
       },
+    },
+    {
+      $unwind: '$perpetrator',
+    },
+    {
+      $match: { reporter },
     },
     {
       $project: {
@@ -59,8 +84,28 @@ const getStudentReports = async (reporter) => {
 
 const getReportDetail = async (reportId) => {
   const pipeline = [
-    ...lookupAndUnwind('reporter', 'studentIdentificationNumber'),
-    ...lookupAndUnwind('perpetrator', 'studentIdentificationNumber'),
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'reporter',
+        foreignField: 'studentIdentificationNumber',
+        as: 'reporter',
+      },
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'perpetrator',
+        foreignField: 'studentIdentificationNumber',
+        as: 'perpetrator',
+      },
+    },
+    {
+      $unwind: '$reporter',
+    },
+    {
+      $unwind: '$perpetrator',
+    },
     {
       $match: { _id: reportId },
     },
@@ -76,8 +121,8 @@ const getReportDetail = async (reportId) => {
       },
     },
   ];
-  const report = await reportModel.aggregate(pipeline);
-  return reportMapper.getReportDetail(report[0]);
+  const reports = await reportModel.aggregate(pipeline);
+  return reportMapper.getReportDetail(reports[0]);
 };
 
 const updateReportStatus = async (reportId, data) => {
