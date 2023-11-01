@@ -1,39 +1,23 @@
-import { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
-const actionSchema = new Mongoose.Schema({
+const actionSchema = new mongoose.Schema({
   student: {
     type: String,
     required: true,
   },
-  currentDisciplinaryAction: {
+  actionType: {
     type: String,
     enum: [
-      'belum ada tindakan',
-      'pemanggilan orang tua',
-      'pemanggilan oleh bimbingan konseling',
-      'surat peringatan 1',
-      'surat peringatan 2',
+      'Pemanggilan Orang Tua',
+      'Surat Peringatan',
+      'Pemanggilan oleh Bimbingan Konseling',
     ],
-    default: 'belum ada tindakan',
-    required: true,
-    timestamps: true,
   },
-  disciplinaryActionHistory: [
-    {
-      action: {
-        type: String,
-        enum: [
-          'belum ada tindakan',
-          'pemanggilan orang tua',
-          'pemanggilan oleh bimbingan konseling',
-          'surat peringatan 1',
-          'surat peringatan 2',
-        ],
-        required: true,
-      },
-      timestamps: true,
-    },
-  ],
+  actionCounter: {
+    type: Number,
+    default: 0,
+  },
+  actionTimestamps: [{ type: Date, default: Date.now() }],
 });
 
-export default Mongoose.model('Action', actionSchema);
+export default mongoose.model('Action', actionSchema);

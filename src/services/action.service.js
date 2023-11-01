@@ -1,30 +1,30 @@
 import actionModel from '../models/action.js';
 
 const getDiscplinaryActionHistory = async (studentIdenficationNumber) => {
-  const actionHistory = await actionModel.find({
+  const actionHistory = await actionModel.findAll({
     student: studentIdenficationNumber,
-  }).disciplinaryActionHistory;
+  });
   return { actionHistory };
 };
 
 const createNewDiscplinaryAction = async (studentIdenficationNumber, data) => {
-  const filter = { student: studentIdenficationNumber };
-  const newAction = { action: data };
+  const prevSameTypeAction = actionModel.findOne({
+    student: studentIdenficationNumber,
+    actionType: data,
+  });
 
-  const action = await actionModel.findOne(filter);
-
-  action.currentDisciplinaryAction = newAction;
-  if (action.disciplinaryActionHistory.length === 1) {
-    action.disciplinaryActionHistory = action;
-  } else {
-    action.disciplinaryActionHistory.push({
-      action: newAction,
+  if (!prevSameTypeAction) {
+    await actionModel.create({
+      student: studentIdenficationNumber,
+      actionType: data,
+      actionCounter: 1,
+      actionTimestamps: [Date.now()],
     });
+  } else {
+    prevSameTypeAction.actionCounter += 1;
+    prevSameTypeAction.actionTimestamps(Date.now());
+    await prevSameTypeAction.save();
   }
-
-  await action.save();
-
-  return { action };
 };
 
 export default {
