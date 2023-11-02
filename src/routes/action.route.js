@@ -8,7 +8,7 @@ const actionRouter = express.Router();
 actionRouter.use(authMiddleware);
 
 actionRouter.get(
-  '/',
+  '/mine',
   authorize('student'),
   actionController.getDiscplinaryActionHistory
 );

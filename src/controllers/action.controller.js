@@ -5,7 +5,7 @@ const getDiscplinaryActionHistory = async (req, res) => {
   try {
     const { identificationNumber } = req.user;
     const data =
-      await actionService.getDisciplinaryActionHistory(identificationNumber);
+      await actionService.getDiscplinaryActionHistory(identificationNumber);
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
@@ -14,11 +14,12 @@ const getDiscplinaryActionHistory = async (req, res) => {
 
 const createNewDiscplinaryAction = async (req, res) => {
   try {
-    const { identificationNumber } = req.params;
+    const { studentIdentificationNumber } = req.params;
+    const { actionType } = req.body;
 
     await actionService.createNewDiscplinaryAction(
-      identificationNumber,
-      req.body
+      studentIdentificationNumber,
+      actionType
     );
     res.json({
       pesan: 'Berhasil membuat tindakan',
