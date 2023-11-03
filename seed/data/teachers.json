@@ -1,0 +1,18 @@
+{
+  "teachers": [
+    {
+      "employeeIdentificationNumber": "197805051234567002",
+      "fullName": "Budi Wijaya, S.Pd.",
+      "placeDateOfBirth": "Surabaya, 1978-05-06",
+      "address": "Jl. Jawa No. 45, Surabaya",
+      "role": "teacher"
+    },
+    {
+      "employeeIdentificationNumber": "192198376502193007",
+      "fullName": "Ida Ayu Dian Puspani, M.Pd.",
+      "placeDateOfBirth": "Surabaya, 1995-02-02",
+      "address": "Jl. Melati No. 456, Malang",
+      "role": "teacher"
+    }
+  ]
+}

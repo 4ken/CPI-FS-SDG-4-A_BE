@@ -1,0 +1,216 @@
+{
+  "students": {
+    "A": [
+      {
+        "studentIdentificationNumber": "1234567890",
+        "fullName": "Agus Setiawan",
+        "placeDateOfBirth": "Jakarta, 2005-03-15",
+        "address": "Jl. Merdeka No. 123, Jakarta",
+        "role": "student",
+        "parent": {
+          "fatherName": "Sugeng Riyadi",
+          "motherName": "Siti Aminah",
+          "phone": "0812345678",
+          "email": "sugeng@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "0987654321",
+        "fullName": "Rina Fitriani",
+        "placeDateOfBirth": "Surabaya, 2004-07-22",
+        "address": "Jl. Pahlawan No. 45, Surabaya",
+        "role": "student",
+        "parent": {
+          "fatherName": "Bambang Kusumo",
+          "motherName": "Ani Rahayu",
+          "phone": "0823456789",
+          "email": "rahayu@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "5432109876",
+        "fullName": "Budi Prasetyo",
+        "placeDateOfBirth": "Bandung, 2006-01-10",
+        "address": "Jl. Diponegoro No. 67, Bandung",
+        "role": "student",
+        "parent": {
+          "fatherName": "Sukirman",
+          "motherName": "Siti Rahayu",
+          "phone": "0834567890",
+          "email": "sukirman@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "9876543210",
+        "fullName": "Dewi Susanti",
+        "placeDateOfBirth": "Yogyakarta, 2005-09-05",
+        "address": "Jl. Malioboro No. 89, Yogyakarta",
+        "role": "student",
+        "parent": {
+          "fatherName": "Joko Susilo",
+          "motherName": "Citra Rahayu",
+          "phone": "0845678901",
+          "email": "susilo@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "2345678901",
+        "fullName": "Rizal Fauzi",
+        "placeDateOfBirth": "Medan, 2004-12-18",
+        "address": "Jl. Medan Baru No. 12, Medan",
+        "role": "student",
+        "parent": {
+          "fatherName": "Sukiman",
+          "motherName": "Siti Aminah",
+          "phone": "0867890123",
+          "email": "siti@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "6789012345",
+        "fullName": "Siti Aisyah",
+        "placeDateOfBirth": "Makassar, 2005-06-30",
+        "address": "Jl. Jenderal Sudirman No. 56, Makassar",
+        "role": "student",
+        "parent": {
+          "fatherName": "Rudi Hartono",
+          "motherName": "Lina Sari",
+          "phone": "0878901234",
+          "email": "rudi@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "3456789012",
+        "fullName": "Hadi Pramono",
+        "placeDateOfBirth": "Semarang, 2006-03-25",
+        "address": "Jl. Pemuda No. 78, Semarang",
+        "role": "student",
+        "parent": {
+          "fatherName": "Hadi Pramono",
+          "motherName": "Prami Retno",
+          "phone": "0890123456",
+          "email": "hadi@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "7890123456",
+        "fullName": "Rita Wulandari",
+        "placeDateOfBirth": "Denpasar, 2004-08-12",
+        "address": "Jl. Gatot Subroto No. 34, Denpasar",
+        "role": "student",
+        "parent": {
+          "fatherName": "Dodi Prasetyo",
+          "motherName": "Via Rahayu",
+          "phone": "0811123654",
+          "email": "via@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "4567890123",
+        "fullName": "Andi Susilo",
+        "placeDateOfBirth": "Surakarta, 2005-02-19",
+        "address": "Jl. Slamet Riyadi No. 56, Surakarta",
+        "role": "student",
+        "parent": {
+          "fatherName": "Andi Susilo",
+          "motherName": "Siti Aminah",
+          "phone": "0823423576",
+          "email": "andi@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "8901234567",
+        "fullName": "Nina Permata",
+        "placeDateOfBirth": "Palembang, 2006-07-07",
+        "address": "Jl. Sudirman No. 23, Palembang",
+        "role": "student",
+        "parent": {
+          "fatherName": "Tono Prasetyo",
+          "motherName": "Fitri Rahayu",
+          "phone": "0831243576",
+          "email": "tonoprasetyo@example.com"
+        }
+      }
+    ],
+    "B": [
+      {
+        "studentIdentificationNumber": "4598237619",
+        "fullName": "Ahmad Farhan",
+        "placeDateOfBirth": "Semarang, 2006-08-20",
+        "address": "Jl. Simpang Lima No. 123, Semarang",
+        "role": "student",
+        "parent": {
+          "fatherName": "Rizal Putra",
+          "motherName": "Siti Aisyah",
+          "phone": "0856789012",
+          "email": "rizal@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "7182946315",
+        "fullName": "Dewi Lestari",
+        "placeDateOfBirth": "Medan, 2005-01-03",
+        "address": "Jl. Medan Baru No. 56, Medan",
+        "role": "student",
+        "parent": {
+          "fatherName": "Hendro Wijaya",
+          "motherName": "Sari Lestari",
+          "phone": "0867890123",
+          "email": "hendro@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "2938471625",
+        "fullName": "Rudi Cahyono",
+        "placeDateOfBirth": "Makassar, 2006-04-12",
+        "address": "Jl. Makassar Indah No. 34, Makassar",
+        "role": "student",
+        "parent": {
+          "fatherName": "Surya Pratama",
+          "motherName": "Dini Susanti",
+          "phone": "0878901234",
+          "email": "surya@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "8615297340",
+        "fullName": "Eka Putri",
+        "placeDateOfBirth": "Palembang, 2007-09-25",
+        "address": "Jl. Palembang Jaya No. 89, Palembang",
+        "role": "student",
+        "parent": {
+          "fatherName": "Mulyadi",
+          "motherName": "Sari Dewi",
+          "phone": "0889012345",
+          "email": "mulyadi@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "9258317462",
+        "fullName": "Surya Wijaya",
+        "placeDateOfBirth": "Balikpapan, 2005-12-14",
+        "address": "Jl. Balikpapan Asri No. 67, Balikpapan",
+        "role": "student",
+        "parent": {
+          "fatherName": "Widodo Cahyono",
+          "motherName": "Nani Sari",
+          "phone": "0890123456",
+          "email": "widodo@example.com"
+        }
+      },
+      {
+        "studentIdentificationNumber": "6374859124",
+        "fullName": "Dini Susanti",
+        "placeDateOfBirth": "Semarang, 2006-06-30",
+        "address": "Jl. Semarang Permai No. 12, Semarang",
+        "role": "student",
+        "parent": {
+          "fatherName": "Rizal Wibowo",
+          "motherName": "Siti Aisyah",
+          "phone": "0901234567",
+          "email": "rizal@example.com"
+        }
+      }
+    ]
+  }
+}

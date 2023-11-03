@@ -3,8 +3,8 @@ import studentModel from '../models/student.js';
 import studentMapper from '../mappers/student.mapper.js';
 import ResponseError from '../utils/error/responseError.js';
 
-const getStudentDetail = async (studentIdentificationNumber) => {
-  const filter = { studentIdentificationNumber };
+const getStudentDetail = async (userClass, studentIdentificationNumber) => {
+  const filter = { class: userClass, studentIdentificationNumber };
   const data = await studentModel.findOne(filter);
 
   if (!data) {
@@ -16,9 +16,14 @@ const getStudentDetail = async (studentIdentificationNumber) => {
   return { student, parent };
 };
 
-const getAllStudents = async (role, search) => {
-  const filter = search ? { fullName: { $regex: search, $options: 'i' } } : {};
-  const isTeacher = role === 'teacher';
+const getAllStudents = async (payload, search) => {
+  const filter = { class: payload.class };
+
+  if (search) {
+    filter.fullName = { $regex: search, $options: 'i' };
+  }
+
+  const isTeacher = payload.role === 'teacher';
   const projection = !isTeacher
     ? { studentIdentificationNumber: 1, fullName: 1 }
     : {};
