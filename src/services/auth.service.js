@@ -16,6 +16,7 @@ const login = async (data) => {
 
   const payload = {
     identificationNumber: data.identificationNumber,
+    class: user.class,
     role: user.role,
   };
 
