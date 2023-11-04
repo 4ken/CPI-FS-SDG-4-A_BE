@@ -17,16 +17,20 @@ const getStudentDetail = async (userClass, studentIdentificationNumber) => {
 };
 
 const getAllStudents = async (payload, search) => {
-  const filter = { class: payload.class };
+  const { class: userClass, role, identificationNumber } = payload;
+
+  const filter = { class: userClass };
+  let projection = {};
 
   if (search) {
     filter.fullName = { $regex: search, $options: 'i' };
   }
 
-  const isTeacher = payload.role === 'teacher';
-  const projection = !isTeacher
-    ? { studentIdentificationNumber: 1, fullName: 1 }
-    : {};
+  if (role !== 'teacher') {
+    filter.studentIdentificationNumber = { $ne: identificationNumber };
+    projection = { studentIdentificationNumber: 1, fullName: 1 };
+  }
+
   const data = await studentModel.find(filter, projection);
   return data.map(studentMapper.getStudent);
 };
