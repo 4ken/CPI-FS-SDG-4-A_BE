@@ -1,37 +1,40 @@
 import actionModel from '../models/action.js';
+import getActionDAta from '../utils/action/getActionData.js';
 
-const getDiscplinaryActionHistory = async (studentIdenficationNumber) => {
-  const disciplinaryActionHistory = await actionModel.find({
-    student: studentIdenficationNumber,
-  });
-  return { disciplinaryActionHistory };
+const getDisciplinaryActionHistory = async (studentIdenficationNumber) => {
+  const allActionHistory = [
+    ...(await getActionDAta(
+      'Pemanggilan Orang Tua',
+      studentIdenficationNumber
+    )),
+    ...(await getActionDAta('Surat Peringatan', studentIdenficationNumber)),
+    ...(await getActionDAta(
+      'Pemanggilan oleh Bimbingan Konseling',
+      studentIdenficationNumber
+    )),
+  ];
+
+  if (!allActionHistory) {
+    return [];
+  }
+  const sortedHistory = allActionHistory.sort(
+    (a, b) => b.timestamps - a.timestamps
+  );
+
+  return sortedHistory;
 };
 
 const createNewDiscplinaryAction = async (
   studentIdentificationNumber,
   data
 ) => {
-  const prevSameTypeAction = await actionModel.findOne({
+  await actionModel.create({
     student: studentIdentificationNumber,
     actionType: data,
   });
-
-  if (!prevSameTypeAction) {
-    await actionModel.create({
-      student: `${studentIdentificationNumber}`,
-      actionType: data,
-      actionCounter: 1,
-      actionTimestamps: [Date.now()],
-    });
-  }
-  if (prevSameTypeAction) {
-    prevSameTypeAction.actionCounter += 1;
-    prevSameTypeAction.actionTimestamps.push(Date.now());
-    await prevSameTypeAction.save();
-  }
 };
 
 export default {
-  getDiscplinaryActionHistory,
+  getDisciplinaryActionHistory,
   createNewDiscplinaryAction,
 };

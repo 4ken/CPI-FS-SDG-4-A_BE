@@ -10,7 +10,7 @@ actionRouter.use(authMiddleware);
 actionRouter.get(
   '/mine',
   authorize('student'),
-  actionController.getDiscplinaryActionHistory
+  actionController.getDisciplinaryActionHistory
 );
 
 actionRouter.use(authorize('teacher'));

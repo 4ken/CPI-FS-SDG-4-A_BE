@@ -1,11 +1,11 @@
 import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 import actionService from '../services/action.service.js';
 
-const getDiscplinaryActionHistory = async (req, res) => {
+const getDisciplinaryActionHistory = async (req, res) => {
   try {
     const { identificationNumber } = req.user;
     const data =
-      await actionService.getDiscplinaryActionHistory(identificationNumber);
+      await actionService.getDisciplinaryActionHistory(identificationNumber);
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
@@ -30,6 +30,6 @@ const createNewDiscplinaryAction = async (req, res) => {
 };
 
 export default {
-  getDiscplinaryActionHistory,
+  getDisciplinaryActionHistory,
   createNewDiscplinaryAction,
 };

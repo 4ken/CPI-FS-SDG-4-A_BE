@@ -11,6 +11,6 @@ router.use('/auth', authRouter);
 router.use('/users', userRouter);
 router.use('/students', studentRouter);
 router.use('/reports', reportRouter);
-router.use('/action', actionRouter);
+router.use('/actions', actionRouter);
 
 export default router;
