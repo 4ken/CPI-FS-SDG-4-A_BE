@@ -24,7 +24,7 @@ const reportSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['belum diproses', 'sedang diproses', 'selesai'],
+      enum: ['belum diproses', 'sedang diproses', 'selesai', 'dibatalkan'],
       default: 'belum diproses',
       required: true,
     },

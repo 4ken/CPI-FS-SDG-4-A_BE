@@ -1,22 +1,25 @@
 import reportService from '../services/report.service.js';
-import validate, { validateAsync } from '../validations/validation.js';
+import validate from '../validations/validation.js';
 import reportValidation from '../validations/report.validation.js';
-import { validationReportId } from '../utils/report/reportUtils.js';
+import { getObjectId } from '../utils/report/reportUtils.js';
 import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 
-const getAllReports = async (req, res) => {
+const createNewReport = async (req, res) => {
   try {
-    const data = await reportService.getAllReports();
-    res.json({ data });
+    const data = await validate(reportValidation.create, req.body);
+    await reportService.createNewReport(req.user, data);
+    res.json({
+      pesan: 'Berhasil membuat laporan',
+    });
   } catch (error) {
     handleErrorResponse(res, error);
   }
 };
 
-const getReportDetail = async (req, res) => {
+const getAllReports = async (req, res) => {
   try {
-    const reportId = await validationReportId(req.params);
-    const data = await reportService.getReportDetail(reportId);
+    const { class: userClass } = req.user;
+    const data = await reportService.getAllReports(userClass);
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
@@ -33,14 +36,12 @@ const getStudentReports = async (req, res) => {
   }
 };
 
-const createNewReport = async (req, res) => {
+const getReportDetail = async (req, res) => {
   try {
-    const { identificationNumber } = req.user;
-    const data = await validateAsync(reportValidation.create, req.body);
-    await reportService.createNewReport(identificationNumber, data);
-    res.json({
-      pesan: 'Berhasil membuat laporan',
-    });
+    const { class: userClass } = req.user;
+    const reportId = await getObjectId(req.params);
+    const data = await reportService.getReportDetail(userClass, reportId);
+    res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
   }
@@ -48,9 +49,11 @@ const createNewReport = async (req, res) => {
 
 const updateReportStatus = async (req, res) => {
   try {
+    const { class: userClass } = req.user;
+    const reportId = await getObjectId(req.params);
+    const { id } = await reportService.getReportDetail(userClass, reportId);
     const data = validate(reportValidation.updateStatus, req.body);
-    const reportId = await validationReportId(req.params);
-    await reportService.updateReportStatus(reportId, data);
+    await reportService.updateReportStatus(id, data);
     res.json({
       pesan: 'Berhasil memperbarui status laporan',
     });
@@ -60,9 +63,9 @@ const updateReportStatus = async (req, res) => {
 };
 
 export default {
-  getAllReports,
-  getReportDetail,
-  getStudentReports,
   createNewReport,
+  getAllReports,
+  getStudentReports,
+  getReportDetail,
   updateReportStatus,
 };

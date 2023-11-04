@@ -9,7 +9,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "ignorePatterns": [".eslintrc.json"],
+  "ignorePatterns": [".eslintrc.json", "seed"],
   "rules": {
     "no-console": "off",
     "import/extensions": "off",

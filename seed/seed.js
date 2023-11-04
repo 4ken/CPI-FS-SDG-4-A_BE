@@ -1,44 +1,53 @@
 import mongoose from 'mongoose';
 import { readFileSync } from 'fs';
+import classModel from '../src/models/class.js';
+import reportModel from '../src/models/report.js';
 import userModel from '../src/models/user.js';
 import studentModel from '../src/models/student.js';
 import teacherModel from '../src/models/teacher.js';
-import reportModel from '../src/models/report.js';
-import passwordUtils from '../src/utils/auth/passwordUtils.js';
+import { createStudentData, createTeacherData } from './seedUtils.js';
 
-const generateSaltAndHash = (identificationNumber) => {
-  const salt = passwordUtils.generateSalt();
-  const password = passwordUtils.hash(identificationNumber, salt);
-  return { salt, password };
-};
+const dbURI = 'mongodb://127.0.0.1:27017/test_antybullying';
+
+const { classes } = JSON.parse(readFileSync('./seed/data/classes.json'));
+const { reports } = JSON.parse(readFileSync('./seed/data/reports.json'));
+const { students } = JSON.parse(readFileSync('./seed/data/students.json'));
+const { teachers } = JSON.parse(readFileSync('./seed/data/teachers.json'));
 
 (async () => {
+<<<<<<< HEAD
   const dbURI = 'mongodb://0.0.0.0:27017/Anty-bullying';
   const data = JSON.parse(readFileSync('./seed/data.json'));
 
+=======
+>>>>>>> 3c798ee11f9e867454602903581d143a5dfea959
   try {
-    await mongoose.connect(dbURI);
+    await Promise.all([
+      mongoose.connect(dbURI),
+      classModel.deleteMany(),
+      userModel.deleteMany(),
+      reportModel.deleteMany(),
+    ]);
 
-    await userModel.deleteMany();
-    await reportModel.deleteMany();
+    const classA = new classModel(classes[0]);
+    const classB = new classModel(classes[1]);
 
-    const { employeeIdentificationNumber } = data.teacher;
-    const teacher = {
-      ...data.teacher,
-      ...generateSaltAndHash(employeeIdentificationNumber),
-    };
+    const studentsAData = createStudentData(classA, students.A);
+    const studentsBData = createStudentData(classB, students.B);
 
-    const students = data.students.map((student) => {
-      const { studentIdentificationNumber } = student;
-      return {
-        ...student,
-        ...generateSaltAndHash(studentIdentificationNumber),
-      };
-    });
+    const teacherAData = createTeacherData(classA, teachers[0]);
+    const teacherBData = createTeacherData(classB, teachers[1]);
 
-    await teacherModel.create(teacher);
-    await studentModel.insertMany(students);
-    await reportModel.insertMany(data.reports);
+    const classesData = [classA, classB];
+    const studentsData = [...studentsAData, ...studentsBData];
+    const teachersData = [teacherAData, teacherBData];
+
+    await Promise.all([
+      classModel.insertMany(classesData),
+      studentModel.insertMany(studentsData),
+      teacherModel.insertMany(teachersData),
+      reportModel.insertMany(reports),
+    ]);
 
     console.log('Successfully seeding data');
     process.exitCode = 0;

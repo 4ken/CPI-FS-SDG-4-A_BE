@@ -3,8 +3,12 @@ import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 
 const getStudentDetail = async (req, res) => {
   try {
+    const { class: userClass } = req.user;
     const { identificationNumber } = req.params;
-    const data = await studentService.getStudentDetail(identificationNumber);
+    const data = await studentService.getStudentDetail(
+      userClass,
+      identificationNumber
+    );
     const { student: siswa, parent: orangTua } = data;
     res.json({ data: { siswa, orangTua } });
   } catch (error) {
@@ -14,9 +18,8 @@ const getStudentDetail = async (req, res) => {
 
 const getAllStudents = async (req, res) => {
   try {
-    const { role } = req.user;
     const { search } = req.query;
-    const data = await studentService.getAllStudents(role, search);
+    const data = await studentService.getAllStudents(req.user, search);
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
