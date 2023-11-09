@@ -15,12 +15,6 @@ const { students } = JSON.parse(readFileSync('./seed/data/students.json'));
 const { teachers } = JSON.parse(readFileSync('./seed/data/teachers.json'));
 
 (async () => {
-<<<<<<< HEAD
-  const dbURI = 'mongodb://0.0.0.0:27017/Anty-bullying';
-  const data = JSON.parse(readFileSync('./seed/data.json'));
-
-=======
->>>>>>> 3c798ee11f9e867454602903581d143a5dfea959
   try {
     await Promise.all([
       mongoose.connect(dbURI),
