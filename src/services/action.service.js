@@ -1,40 +1,44 @@
+import httpStatus from 'http-status';
 import actionModel from '../models/action.js';
-import getActionDAta from '../utils/action/getActionData.js';
+import studentModel from '../models/student.js';
+import getActionData from '../utils/action/getActionData.js';
+import actionMapper from '../mappers/action.mapper.js';
+import ResponseError from '../utils/error/responseError.js';
 
-const getDisciplinaryActionHistory = async (studentIdenficationNumber) => {
-  const allActionHistory = [
-    ...(await getActionDAta(
-      'Pemanggilan Orang Tua',
-      studentIdenficationNumber
-    )),
-    ...(await getActionDAta('Surat Peringatan', studentIdenficationNumber)),
-    ...(await getActionDAta(
-      'Pemanggilan oleh Bimbingan Konseling',
-      studentIdenficationNumber
-    )),
+const getAllActionHistory = async (identificationNumber) => {
+  const actionTypes = [
+    'pemanggilan orang tua',
+    'surat peringatan',
+    'pemanggilan oleh bimbingan konseling',
   ];
 
-  if (!allActionHistory) {
-    return [];
-  }
-  const sortedHistory = allActionHistory.sort(
-    (a, b) => b.timestamps - a.timestamps
+  const allActionHistory = await Promise.all(
+    actionTypes.map((action) => getActionData(action, identificationNumber))
   );
 
-  return sortedHistory;
+  const flattenedHistory = allActionHistory.flat();
+
+  if (!flattenedHistory.length) {
+    return [];
+  }
+
+  return flattenedHistory.map(actionMapper.getAllActionHistory);
 };
 
-const createNewDiscplinaryAction = async (
-  studentIdentificationNumber,
-  data
-) => {
+const createNewAction = async (studentIdentificationNumber, data) => {
+  const student = await studentModel.findOne({ studentIdentificationNumber });
+
+  if (!student) {
+    throw new ResponseError('Siswa tidak ditemukan', httpStatus.NOT_FOUND);
+  }
+
   await actionModel.create({
     student: studentIdentificationNumber,
-    actionType: data,
+    actionType: data.actionType,
   });
 };
 
 export default {
-  getDisciplinaryActionHistory,
-  createNewDiscplinaryAction,
+  getAllActionHistory,
+  createNewAction,
 };

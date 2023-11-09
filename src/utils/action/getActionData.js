@@ -1,20 +1,14 @@
 import actionModel from '../../models/action.js';
 
-const getActionDAta = async (actionType, studentIdenficationNumber) => {
-  const rawData = await actionModel.find({
-    student: studentIdenficationNumber,
-    actionType: `${actionType}`,
-  });
+const getActionData = async (actionType, student) => {
+  const rawData = await actionModel.find({ actionType, student }).lean();
 
   const processedData = rawData.map((data, i) => ({
-    actionType: `${actionType}`,
-    number: i + 1,
-    timestamps: data.timestamps,
+    ...data,
+    actionType: `${data.actionType} ${i + 1}`,
   }));
 
-  const sortedData = processedData.sort((a, b) => b.order - a.order);
-
-  return sortedData;
+  return processedData;
 };
 
-export default getActionDAta;
+export default getActionData;

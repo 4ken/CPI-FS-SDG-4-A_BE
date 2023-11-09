@@ -1,26 +1,25 @@
 import handleErrorResponse from '../utils/response/handleErrorResponse.js';
 import actionService from '../services/action.service.js';
+import validate from '../validations/validation.js';
+import actionValidation from '../validations/action.validation.js';
 
-const getDisciplinaryActionHistory = async (req, res) => {
+const getAllActionHistory = async (req, res) => {
   try {
     const { identificationNumber } = req.user;
-    const data =
-      await actionService.getDisciplinaryActionHistory(identificationNumber);
+    const data = await actionService.getAllActionHistory(identificationNumber);
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
   }
 };
 
-const createNewDiscplinaryAction = async (req, res) => {
+const createNewAction = async (req, res) => {
   try {
     const { studentIdentificationNumber } = req.params;
-    const { actionType } = req.body;
+    const data = validate(actionValidation.create, req.body);
 
-    await actionService.createNewDiscplinaryAction(
-      studentIdentificationNumber,
-      actionType
-    );
+    await actionService.createNewAction(studentIdentificationNumber, data);
+
     res.json({
       pesan: 'Berhasil membuat tindakan',
     });
@@ -30,6 +29,6 @@ const createNewDiscplinaryAction = async (req, res) => {
 };
 
 export default {
-  getDisciplinaryActionHistory,
-  createNewDiscplinaryAction,
+  getAllActionHistory,
+  createNewAction,
 };

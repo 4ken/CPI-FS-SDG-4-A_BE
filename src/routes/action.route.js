@@ -10,13 +10,12 @@ actionRouter.use(authMiddleware);
 actionRouter.get(
   '/mine',
   authorize('student'),
-  actionController.getDisciplinaryActionHistory
+  actionController.getAllActionHistory
 );
-
-actionRouter.use(authorize('teacher'));
 actionRouter.post(
   '/:studentIdentificationNumber',
-  actionController.createNewDiscplinaryAction
+  authorize('teacher'),
+  actionController.createNewAction
 );
 
 export default actionRouter;
