@@ -1,19 +1,23 @@
 import mongoose from 'mongoose';
 
-const actionSchema = new mongoose.Schema({
-  student: {
-    type: String,
-    required: true,
+const actionSchema = new mongoose.Schema(
+  {
+    student: {
+      type: String,
+      required: true,
+    },
+    actionType: {
+      type: String,
+      enum: [
+        'pemanggilan orang tua',
+        'surat peringatan',
+        'pemanggilan oleh bimbingan konseling',
+      ],
+    },
   },
-  actionType: {
-    type: String,
-    enum: [
-      'Pemanggilan Orang Tua',
-      'Surat Peringatan',
-      'Pemanggilan oleh Bimbingan Konseling',
-    ],
-  },
-  timestamps: { type: Date, default: Date.now() },
-});
+  {
+    timestamps: true,
+  }
+);
 
 export default mongoose.model('Action', actionSchema);
