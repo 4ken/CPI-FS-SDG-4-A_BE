@@ -11,8 +11,9 @@ const createNewReport = async (payload, data) => {
 
   const isSameClass = student.class.toString() === payload.class;
   if (!student || !isSameClass) {
-    throw new Error(
-      `Pelaku dengan nomor induk ${data.perpetrator} tidak ditemukan`
+    throw new ResponseError(
+      `Pelaku dengan nomor induk ${data.perpetrator} tidak ditemukan`,
+      httpStatus.NOT_FOUND
     );
   }
 
