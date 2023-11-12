@@ -1,10 +1,10 @@
-<div style="text-align:center;">
+<div align="center">
   <img src="https://i.ibb.co/WBw2qjP/logo.png" alt="Logo" height="125" />
 </div>
 
-<h1 style="text-align:center;">Anty-Bullying Web Service API</h1>
+<h1 align="center">Anty-Bullying Web Service API</h1>
 
-<div style="text-align:center;">
+<div align="center">
 
 ![Contributors](https://img.shields.io/badge/express-v4.18.2-blue.svg?logo=express)
 ![MongoDB](https://img.shields.io/badge/mongodb-v5.9.0-blue.svg?logo=mongodb)
