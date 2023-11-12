@@ -7,7 +7,7 @@ import studentModel from '../src/models/student.js';
 import teacherModel from '../src/models/teacher.js';
 import { createStudentData, createTeacherData } from './seedUtils.js';
 
-const dbURI = 'mongodb://127.0.0.1:27017/test_antybullying';
+const dbURI = 'put your MongoDB connection string here';
 
 const { classes } = JSON.parse(readFileSync('./seed/data/classes.json'));
 const { reports } = JSON.parse(readFileSync('./seed/data/reports.json'));
