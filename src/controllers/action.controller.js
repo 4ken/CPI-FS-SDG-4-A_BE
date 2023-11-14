@@ -16,7 +16,9 @@ const getAllActionHistory = async (req, res) => {
 const getStudentActionHistory = async (req, res) => {
   try {
     const { studentIdentificationNumber } = req.params;
-    const data = await actionService.getAllActionHistory(studentIdentificationNumber);
+    const data = await actionService.getAllActionHistory(
+      studentIdentificationNumber
+    );
     res.json({ data });
   } catch (error) {
     handleErrorResponse(res, error);
