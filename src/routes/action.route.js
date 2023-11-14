@@ -12,6 +12,11 @@ actionRouter.get(
   authorize('student'),
   actionController.getAllActionHistory
 );
+actionRouter.get(
+  '/:studentIdentificationNumber',
+  authorize('teacher'),
+  actionController.getStudentActionHistory
+);
 actionRouter.post(
   '/:studentIdentificationNumber',
   authorize('teacher'),
