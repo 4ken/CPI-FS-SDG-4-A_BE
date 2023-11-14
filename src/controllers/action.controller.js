@@ -13,6 +13,18 @@ const getAllActionHistory = async (req, res) => {
   }
 };
 
+const getStudentActionHistory = async (req, res) => {
+  try {
+    const { studentIdentificationNumber } = req.params;
+    const data = await actionService.getAllActionHistory(
+      studentIdentificationNumber
+    );
+    res.json({ data });
+  } catch (error) {
+    handleErrorResponse(res, error);
+  }
+};
+
 const createNewAction = async (req, res) => {
   try {
     const { studentIdentificationNumber } = req.params;
@@ -31,4 +43,5 @@ const createNewAction = async (req, res) => {
 export default {
   getAllActionHistory,
   createNewAction,
+  getStudentActionHistory,
 };

@@ -31,22 +31,6 @@
       "incidentLocation": "Laboratorium",
       "incidentDescription": "Agus berbicara kasar pada Nina saat pelajaran IPA.",
       "status": "belum diproses"
-    },
-    {
-      "perpetrator": "4598237619",
-      "reporter": "7182946315",
-      "incidentDate": "2023-10-20T12:45:00.000Z",
-      "incidentLocation": "Lapangan",
-      "incidentDescription": "Farhan merundung Rudi di lapangan sekolah.",
-      "status": "belum diproses"
-    },
-    {
-      "perpetrator": "9258317462",
-      "reporter": "8615297340",
-      "incidentDate": "2023-10-21T15:15:00.000Z",
-      "incidentLocation": "Ruang Kelas",
-      "incidentDescription": "Surya mempermalukan Rudi di depan teman-temannya.",
-      "status": "sedang diproses"
     }
   ]
 }
