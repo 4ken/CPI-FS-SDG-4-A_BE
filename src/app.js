@@ -19,6 +19,10 @@ app.use(morgan('tiny'));
 app.use(cors(corsOptionsDelegate));
 app.use('/api', router);
 
+app.get('/', (_, res) => {
+  res.send('Server is up and running.');
+});
+
 mongoose
   .connect(dbURI)
   .then(() => {
